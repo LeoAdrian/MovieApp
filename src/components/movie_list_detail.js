@@ -28,10 +28,12 @@ const MovieDetail = ({selectedMovie, trailer, closeDetail, hideComponent}) => {
         //             'Content-Type': 'application/json'
         //           })
         //         })
-        window.$.post("http://localhost:8000/",data,function(){
-          alert('Data was sent to the server');
+          window.$.post("http://localhost:8000/",data,function(){
+            alert('Data was sent to the server');
         });
 }
+
+
 
       return (
         <div>
