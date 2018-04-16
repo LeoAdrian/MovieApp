@@ -17,6 +17,7 @@ class App extends Component {
       carousel:[],
       topRated:[],
       upcoming:[],
+      loading:true
     };
 }
   getMoviesURL(type, page = 1){
@@ -55,6 +56,7 @@ class App extends Component {
     upcoming:values[2].results.filter((movie) => movie.original_title !== 'Extinction')
   }))
   }
+
 
   render() {
     return (

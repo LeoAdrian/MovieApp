@@ -139,3 +139,15 @@ i:hover {
 button:focus {
   outline:none;
 }
+
+.sweet-loading {
+  width:100%;
+  position:fixed;
+  top:50%;
+  transform:translateY(-50%);
+}
+
+.sweet-loading * {
+  margin:0 auto;
+  color:#A0A0A0;
+}
