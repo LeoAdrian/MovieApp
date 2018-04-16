@@ -16,7 +16,7 @@ class App extends Component {
       popular: [],
       carousel:[],
       topRated:[],
-      upcoming:[]
+      upcoming:[],
     };
 }
   getMoviesURL(type, page = 1){
@@ -41,19 +41,6 @@ class App extends Component {
     return newArr;
 }
 
-  postTorrent(e) {
-    e.stopPropagation();
-  return fetch('http://localhost:8000', {
-            method: 'POST',
-            body: JSON.stringify({torrent: `Kimi no na wa 2016`}),
-            headers: new Headers({
-              'Content-Type': 'application/json'
-            })
-          }).then(res => res.json())
-          .catch(error => console.error('Error:', error))
-          .then(response => console.log('Success:', response))
-}
-
   componentDidMount() {
    const promises = [
    this.getMoviesURL('popular'),
@@ -76,7 +63,6 @@ class App extends Component {
         <MovieList title = 'Popular' movieList = {this.state.popular}/>
         <MovieList title = 'Top Rated' movieList = {this.state.topRated}/>
         <MovieList title = 'Upcoming' movieList = {this.state.upcoming}/>
-        <button onClick = {this.postTorrent}>Watch Movie</button>
       </div>
     );
   }

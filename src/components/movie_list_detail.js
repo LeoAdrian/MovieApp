@@ -4,19 +4,15 @@ const MovieDetail = ({selectedMovie, trailer, closeDetail, hideComponent}) => {
       if(!selectedMovie){
         return <span></span>
       }
-
       // console.log('Trailer info in MovieDetail: ', trailer)
       console.log('selectedMovie info in MovieDetail: ', selectedMovie)
       // const YTURL = `https://www.youtube.com/embed/${trailer.id.videoId}`;
-
       // jQuery slideDown animation
       const slideAndHide = () => {
         hideComponent();
       }
-
-// Send data to backend to get the magnet link
+      // Send data to backend to get the magnet link
       const data = {torrent: `${selectedMovie.title} ${selectedMovie.release_date.slice(0,4)}`};
-
       const postTorrent = (ev) => {
         ev.preventDefault();
         ev.stopPropagation();
@@ -28,13 +24,25 @@ const MovieDetail = ({selectedMovie, trailer, closeDetail, hideComponent}) => {
         //             'Content-Type': 'application/json'
         //           })
         //         })
-          window.$.post("http://localhost:8000/",data,function(){
-            alert('Data was sent to the server');
+        //   window.$.post("http://localhost:8000/",data,function(){
+        //     alert('Data was sent to the server');
+        // });
+            window.$.ajax({
+              type: "POST",
+              url: 'http://localhost:8000/',
+              data: data,
+              success: function(rec){
+                let checkStatus = setInterval(() => {
+                  if(rec){
+                    console.log(`Data was retrieved: ${rec}\n Stop checking for threshold`);
+                    window.open('http://www.localhost:8000/');
+                    clearInterval(checkStatus);
+                  }
+                },1000);
+              },
+              dataType: 'json'
         });
-}
-
-
-
+      }
       return (
         <div>
           <div className = 'detail'>
@@ -54,8 +62,6 @@ const MovieDetail = ({selectedMovie, trailer, closeDetail, hideComponent}) => {
               </div>
             </div> */}
       </div>
-
       )
 }
-
 export default MovieDetail;
