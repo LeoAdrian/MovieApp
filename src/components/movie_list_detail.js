@@ -5,7 +5,7 @@ class MovieDetail extends Component {
   constructor(props){
     super(props);
     this.state = {
-      loading:false,
+      loading:true,
       data: {torrent: `${this.props.selectedMovie.title} ${this.props.selectedMovie.release_date.slice(0,4)}`}
     }
   }
@@ -14,7 +14,16 @@ class MovieDetail extends Component {
       this.props.hideComponent();
     }
 
+    openMovie() {
+      return new Promise((resolve,reject) => {
+          resolve(window.open('http://www.localhost:8000/'));
+      })
+    }
+
     postTorrent = (ev) => {
+    const openTab = this.openMovie;
+    const closeSpinner = this.props.toggleSpinner;
+    // console.log(`In upper level: ${open}`);
      ev.preventDefault();
      ev.stopPropagation();
          window.$.ajax({
@@ -22,27 +31,32 @@ class MovieDetail extends Component {
            url: 'http://localhost:8000/',
            data: this.state.data,
            success: function(rec){
-             let checkStatus = setInterval(() => {
+             let checkStatus = setInterval((open) => {
                if(rec === true){
-                 console.log(`Data was retrieved: ${rec}\n Stop checking for threshold`);
-                 window.open('http://www.localhost:8000/');
-                 clearInterval(checkStatus);
+                  openTab()
+                  .then(() => {
+                    console.log(`Data was retrieved: ${rec}\n Stop checking for threshold`);
+                    clearInterval(checkStatus);
+
+                  })
+                  .then(() => {
+                    closeSpinner();
+                    console.log(`Spinner is removed`);
+                    document.querySelector('.hide-load').classList.remove('show-load');
+                    document.querySelector('body').classList.remove('body-load');
+                  });
                }
-             },1000);
+               },1000);
            },
            dataType: 'json'
      });
    }
 
-   toggleSpinner = () => {
-     this.state.loading ? this.setState({loading:false}) : this.setState({loading:true});
-     console.log(this.state.loading);
-    }
 
-   // loadTorrent = (ev) => {
-   //   this.postTorrent(ev);
-   //   this.toggleSpinner();
-   // }
+   loadTorrent = (ev) => {
+     this.postTorrent(ev);
+     this.props.toggleSpinner();
+   }
 
    render() {
      return (
@@ -51,7 +65,7 @@ class MovieDetail extends Component {
            <div className = 'text_detail'>
              {this.props.selectedMovie.title}
              <div>{this.props.selectedMovie.overview}</div>
-             <button id = {this.props.selectedMovie.id} onClick = {this.postTorrent}>Watch Movie</button>
+             <button id = {this.props.selectedMovie.id} onClick = {this.loadTorrent}>Watch Movie</button>
            </div>
          </div>
            <div className = 'after_image_detail'>
@@ -63,8 +77,6 @@ class MovieDetail extends Component {
                <iframe  className="embed-responsive-item" src = {YTURL}  allowFullScreen='true'/>
              </div>
            </div> */}
-           <button onClick = {() => this.toggleSpinner}>Show Spinner</button>
-           <Spinner load = {this.state.loading} />
      </div>
      )
    }

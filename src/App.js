@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import './App.css';
 import MovieCarousel from './components/movie_carousel';
 import MovieList from './components/movie_list';
+import Spinner from './components/spinner';
 // Url used to build the images
 const POSTER_URL = `https://image.tmdb.org/t/p/`;
 const  width = `w500`;
@@ -17,7 +18,7 @@ class App extends Component {
       carousel:[],
       topRated:[],
       upcoming:[],
-      loading:true
+      loading:false
     };
 }
   getMoviesURL(type, page = 1){
@@ -57,14 +58,23 @@ class App extends Component {
   }))
   }
 
+  toggleSpinner = () => {
+    this.state.loading===true ? this.setState({loading:false}) : this.setState({loading:true});
+    document.querySelector('.hide-load').classList.add('show-load');
+    document.querySelector('body').classList.add('body-load');
+    console.log(this.state.loading);
+    console.log('You clicked the button');
+   }
 
   render() {
     return (
       <div className="App">
         <MovieCarousel movies = {this.state.carousel} />
-        <MovieList title = 'Popular' movieList = {this.state.popular}/>
-        <MovieList title = 'Top Rated' movieList = {this.state.topRated}/>
-        <MovieList title = 'Upcoming' movieList = {this.state.upcoming}/>
+        <MovieList toggleSpinner = {this.toggleSpinner} title = 'Popular' movieList = {this.state.popular}/>
+        <MovieList toggleSpinner = {this.toggleSpinner} title = 'Top Rated' movieList = {this.state.topRated}/>
+        <MovieList toggleSpinner = {this.toggleSpinner} title = 'Upcoming' movieList = {this.state.upcoming}/>
+        {this.state.loading && <Spinner load = {this.state.loading} />}
+        <div className = "hide-load"></div>
       </div>
     );
   }

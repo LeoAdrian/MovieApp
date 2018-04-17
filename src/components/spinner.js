@@ -1,5 +1,5 @@
 import React from 'react';
-import { RingLoader } from 'react-spinners';
+import { BounceLoader } from 'react-spinners';
 
 class Spinner extends React.Component {
   constructor(props) {
@@ -9,11 +9,12 @@ class Spinner extends React.Component {
   render() {
     return (
       <div className='sweet-loading'>
-        <RingLoader
-          color={'#A0A0A0'}
+        <BounceLoader
+          color={'#36D7B7'}
           loading={this.props.load}
-          size='200'
+          size='80'
         />
+        <div className = 'load-msg'>Please wait for the movie to load...</div>
       </div>
     )
   }
