@@ -16,7 +16,7 @@ class MovieDetail extends Component {
 
     openMovie() {
       return new Promise((resolve,reject) => {
-          resolve(window.open('http://www.localhost:8000/'));
+          // resolve(window.open('http://www.localhost:8000/'));
       })
     }
 
@@ -33,18 +33,18 @@ class MovieDetail extends Component {
            success: function(rec){
              let checkStatus = setInterval((open) => {
                if(rec === true){
-                  openTab()
-                  .then(() => {
-                    console.log(`Data was retrieved: ${rec}\n Stop checking for threshold`);
+                  // openTab()
+                  // .then(() => {
+                    // console.log(`Data was retrieved: ${rec}\n Stop checking for threshold`);
                     clearInterval(checkStatus);
 
-                  })
-                  .then(() => {
+                  // })
+                  // .then(() => {
                     closeSpinner();
                     console.log(`Spinner is removed`);
                     document.querySelector('.hide-load').classList.remove('show-load');
                     document.querySelector('body').classList.remove('body-load');
-                  });
+                  // });
                }
                },1000);
            },

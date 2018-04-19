@@ -72,7 +72,7 @@ class App extends Component {
         <MovieCarousel movies = {this.state.carousel} />
         <MovieList toggleSpinner = {this.toggleSpinner} title = 'Popular' movieList = {this.state.popular}/>
         <MovieList toggleSpinner = {this.toggleSpinner} title = 'Top Rated' movieList = {this.state.topRated}/>
-        <MovieList toggleSpinner = {this.toggleSpinner} title = 'Upcoming' movieList = {this.state.upcoming}/>
+        {/* <MovieList toggleSpinner = {this.toggleSpinner} title = 'Upcoming' movieList = {this.state.upcoming}/> */}
         {this.state.loading && <Spinner load = {this.state.loading} />}
         <div className = "hide-load"></div>
       </div>
