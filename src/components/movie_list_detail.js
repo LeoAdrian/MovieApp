@@ -1,12 +1,15 @@
 import React, {Component} from 'react';
 import Spinner from './spinner';
+import { Link } from 'react-router-dom';
+import Movie from '../routes/movie'
 
 class MovieDetail extends Component {
   constructor(props){
     super(props);
     this.state = {
       loading:true,
-      data: {torrent: `${this.props.selectedMovie.title} ${this.props.selectedMovie.release_date.slice(0,4)}`}
+      data: {torrent: `${this.props.selectedMovie.title} ${this.props.selectedMovie.release_date.slice(0,4)}`},
+      movieTitle:null
     }
   }
   // jQuery slideDown animation
@@ -58,6 +61,7 @@ class MovieDetail extends Component {
      this.props.toggleSpinner();
    }
 
+
    render() {
      return (
        <div>
@@ -66,6 +70,7 @@ class MovieDetail extends Component {
              {this.props.selectedMovie.title}
              <div>{this.props.selectedMovie.overview}</div>
              <button id = {this.props.selectedMovie.id} onClick = {this.loadTorrent}>Watch Movie</button>
+                      <button onClick = {() => this.props.passName(this.props.selectedMovie.original_title)}><Link to = '/movie'>Go to movie</Link></button>
            </div>
          </div>
            <div className = 'after_image_detail'>
@@ -77,6 +82,7 @@ class MovieDetail extends Component {
                <iframe  className="embed-responsive-item" src = {YTURL}  allowFullScreen='true'/>
              </div>
            </div> */}
+
      </div>
      )
    }

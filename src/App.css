@@ -4,7 +4,7 @@ body, html {
   background-color: white;
   margin:0;
   box-sizing:border-box;
-  background: #333;
+  background: beige;
 }
 
 body {
@@ -178,11 +178,15 @@ button:focus {
   position:absolute;
   top:0;
   left:0;
-  opacity:0.8;
+  opacity:1;
   display:block;
   z-index:2;
 }
 
 .body-load {
   overflow-y: hidden;
+}
+
+.content-toggle {
+  display:none;
 }

@@ -83,7 +83,7 @@ class MovieList extends Component {
             {this.band()}
           </Slider>
           <div className = 'show-detail'>
-            {this.state.active  && <MovieDetail toggleSpinner = {this.props.toggleSpinner} hideComponent = {() => this.toggleComponent(false)} selectedMovie = {this.state.selectedMovie}/>}
+            {this.state.active  && <MovieDetail passName = {this.props.passName} toggleSpinner = {this.props.toggleSpinner} hideComponent = {() => this.toggleComponent(false)} selectedMovie = {this.state.selectedMovie}/>}
           </div>
         </div>
       )
