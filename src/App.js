@@ -76,6 +76,7 @@ class App extends Component {
 //     console.log('You clicked the button');
 //    }
 
+// Pass params to route
 passName = (name) => {
   this.setState({movieTitle:name});
 }

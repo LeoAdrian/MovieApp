@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import MovieCarousel from './components/movie_carousel';
 import MovieList from './components/movie_list';
 import Spinner from './components/spinner';
+import Search from './components/search';
 
 // Url used to build the images
 const POSTER_URL = `https://image.tmdb.org/t/p/`;
@@ -45,16 +46,18 @@ class Main extends Component {
 }
 
   componentDidMount() {
-      this.toggleSpinner();
+  // Toggle loading spinner before page loads
+    this.toggleSpinner();
       setTimeout(function(){
-        this.toggleSpinner();
-      }.bind(this),5000)
+    this.toggleSpinner();
+  }.bind(this),5000);
+  // Get promises for some categories
    const promises = [
    this.getMoviesURL('popular'),
    this.getMoviesURL('top_rated'),
    this.getMoviesURL('upcoming'),
 ]
-
+  // Resolve said promises
   Promise.all(promises).then((values) => this.setState({
     popular:values[0].results,
     carousel:this.filterArr(values[0].results),
@@ -63,6 +66,7 @@ class Main extends Component {
   }))
   }
 
+  // Function that displays a loading animation
   toggleSpinner = () => {
     this.state.loading===true ? this.setState({loading:false}) : this.setState({loading:true});
     document.querySelector('.hide-load').classList.toggle('show-load');
@@ -77,18 +81,18 @@ class Main extends Component {
    // }
 
 
-
+  // Render all the components in '/' route
   render() {
     return (
       <div className="Main">
+        <Search />
         <MovieCarousel movies = {this.state.carousel} />
         <MovieList passName = {this.props.passName} toggleSpinner = {this.toggleSpinner} title = 'Popular' movieList = {this.state.popular}/>
         <MovieList toggleSpinner = {this.toggleSpinner} title = 'Top Rated' movieList = {this.state.topRated}/>
         {/* <MovieList toggleSpinner = {this.toggleSpinner} title = 'Upcoming' movieList = {this.state.upcoming}/> */}
         {this.state.loading && <Spinner load = {this.state.loading} />}
+        {/* Div that handles the display of the spinner */}
         <div className = "hide-load"></div>
-
-
       </div>
     );
   }
