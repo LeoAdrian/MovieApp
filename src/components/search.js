@@ -8,7 +8,7 @@ class Search extends Component {
     this.state = {
       searchVal : '',
       mockArr:['Geralt','Yennefer','Dendelion','Triss','Ciri','Emhyr','Vesemir','Crach'],
-      results:[]
+      result:[]
     }
   }
 
@@ -23,28 +23,29 @@ class Search extends Component {
     let arr = [];
     let ul = document.querySelector('.searchList');
     let li = document.createElement('LI');
-    let coun = 0;
+    let mock = this.state.mockArr;
+    let length = mock.length;
 
     this.setState({searchVal: term});
 
-    // .then(() => {
-    //   this.state.mockArr.map(name => {
-    //     if(name.toLowerCase().slice(0,1) === name.toLowerCase().slice(0,1)){
-    //       coun ++;
-    //     }
-    //   })
-    // })
-    // .then(() => {
-    //   console.log(coun);
-    //   coun = 0;
-    // })
+    mock.map (name => {
+      if(term.toLowerCase().slice(0,1) === name.toLowerCase().slice(0,1)){
+        arr.push(<li key = {name}>{name}</li>);
+      }
+      if(mock.indexOf(name) === length-1 && arr.length === 0 && term !== '') {
+        arr.push(<li>Nothing matches your search</li>)
+      }
+    })
+
+
+    this.state.result = arr;
   }
 
   render(){
     return (
       <div>
         <input type="text" value = {this.state.searchVal} placeholder = 'Search movie...' onChange = {(ev) => this.getValue(ev.target.value)}></input>
-        <ul className='searchList'><SearchList /></ul>
+        <SearchList  className='searchList' result = {this.state.result} />
       </div>
     )
   }

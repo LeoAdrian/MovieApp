@@ -1,8 +1,8 @@
 import React from 'react';
 
-const SearchList = () => {
+const SearchList = (props) => {
   return (
-    <div>list</div>
+    <ul>{props.result}</ul>
   )
 }
 
