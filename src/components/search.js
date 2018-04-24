@@ -6,9 +6,9 @@ class Search extends Component {
     super(props);
 
     this.state = {
-      searchVal : '',
-      mockArr:['Geralt','Yennefer','Dendelion','Triss','Ciri','Emhyr','Vesemir','Crach'],
-      result:[]
+      query : '',
+      mockArr:['Geralt','Yennefer','Dendelion','Triss','Ciri','Emhyr','Vesemir','Crach', 'Grenver'],
+      results:[]
     }
   }
 
@@ -19,33 +19,44 @@ class Search extends Component {
     })
   }
 
-  getValue = (term) => {
-    let arr = [];
-    let ul = document.querySelector('.searchList');
-    let li = document.createElement('LI');
-    let mock = this.state.mockArr;
-    let length = mock.length;
-
-    this.setState({searchVal: term});
-
-    mock.map (name => {
-      if(term.toLowerCase().slice(0,1) === name.toLowerCase().slice(0,1)){
-        arr.push(<li key = {name}>{name}</li>);
-      }
-      if(mock.indexOf(name) === length-1 && arr.length === 0 && term !== '') {
-        arr.push(<li>Nothing matches your search</li>)
-      }
+  handleInputChange = (ev) => {
+    return new Promise((resolve,reject) => {
+      resolve(this.setState({query:ev.target.value}));
     })
+   }
 
+   displayQuery = (ev) => {
+     // Change the state whenever the user inputs something
+     // after that start finding the match
+    this.handleInputChange(ev)
+    .then(() => {
+      let mock = this.state.mockArr;
+      let query = this.state.query;
+      let b = document.createElement('B');
+      let li = document.createElement('LI');
+      // Matches are pushed to this array
+      let filteredArr = [];
+      // Create a reg-expression that takes the input for comparison
+      let regex = new RegExp(query,'i');
+      mock.filter(name => {
+        if(name.search(regex) === 0 && query.length !== 0){
+            let capitalizeQ = query.replace(/\b\w/g, l => l.toUpperCase());
+            let filtered = name.replace(regex, <b>{capitalizeQ}</b>);
+            filteredArr.push(<li>{filtered}</li>);
+        }
+      })
+      this.setState({results:filteredArr});
+      console.log(this.state.results);
+    })
+    // .then((filteredArr) => this.setState({results:filteredArr}));
+   }
 
-    this.state.result = arr;
-  }
 
   render(){
     return (
       <div>
-        <input type="text" value = {this.state.searchVal} placeholder = 'Search movie...' onChange = {(ev) => this.getValue(ev.target.value)}></input>
-        <SearchList  className='searchList' result = {this.state.result} />
+        <input type="text" value = {this.state.searchVal} placeholder = 'Search movie...' onChange = {this.displayQuery}></input>
+        <SearchList  className='searchList' results = {this.state.results} />
       </div>
     )
   }

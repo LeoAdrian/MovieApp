@@ -2,7 +2,7 @@ import React from 'react';
 
 const SearchList = (props) => {
   return (
-    <ul>{props.result}</ul>
+    <ul>{props.results}</ul>
   )
 }
 

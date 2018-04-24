@@ -4,7 +4,7 @@ body, html {
   background-color: white;
   margin:0;
   box-sizing:border-box;
-  background: beige;
+  background: grey;
 }
 
 body {
@@ -189,4 +189,8 @@ button:focus {
 
 .content-toggle {
   display:none;
+}
+
+.bold-letter {
+  color:pink;
 }
