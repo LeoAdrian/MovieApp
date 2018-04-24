@@ -57,10 +57,10 @@ class Search extends Component {
       mock.filter(name => {
         if (name.search(regex) === 0 && query.length !== 0) {
           let capitalizeQ = query.replace(/\b\w/g, l => l.toUpperCase())
-          let filtered = name.split(regex)
+          let remainingWord = name.split(regex)[1]
 
           filteredArr.push(
-            getElement({ capitalized: capitalizeQ, text: filtered[1] })
+            getElement({ capitalized: capitalizeQ, text: remainingWord })
           )
         }
       })
