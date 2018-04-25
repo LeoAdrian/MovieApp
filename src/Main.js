@@ -6,96 +6,116 @@ import Search from './components/search';
 
 // Url used to build the images
 const POSTER_URL = `https://image.tmdb.org/t/p/`;
-const  width = `w500`;
-
-
+const width = `w500`;
 
 class Main extends Component {
+	constructor(props) {
+		super(props);
 
-  constructor(props){
-    super(props);
+		this.state = {
+			popular: [],
+			carousel: [],
+			topRated: [],
+			upcoming: [],
+			loading: false
+		};
+	}
+	getMoviesURL(type, page = 1) {
+		// The Movie Database API
+		const API_KEY = `795746de6623bafccfaa61bf42e3adb8`;
+		const URL = `https://api.themoviedb.org/3/movie/${type}?api_key=${API_KEY}&language=en-US&page=${page}`;
+		return fetch(URL).then(response => response.json());
+	}
 
-    this.state = {
-      popular: [],
-      carousel:[],
-      topRated:[],
-      upcoming:[],
-      loading:false,
-    };
-}
-  getMoviesURL(type, page = 1){
-    // The Movie Database API
-    const API_KEY = `795746de6623bafccfaa61bf42e3adb8`;
-    const URL = `https://api.themoviedb.org/3/movie/${type}?api_key=${API_KEY}&language=en-US&page=${page}`;
-    return fetch(URL).then(response => response.json())
-  }
+	// Creating a filtered array of elements to pass to the carousel
+	filterArr(arr) {
+		let newArr = [];
+		// arr.map(item => {
+		//   if(item.vote_average > 7.1 && item.title !== 'The Shape of Water'){
+		//     newArr.push(item)
+		//   }
+		arr.filter(movie => {
+			if (
+				movie.title === 'Thor: Ragnarok' ||
+				movie.title === 'Insidious: The Last Key' ||
+				movie.title === 'Sleight'
+			) {
+				newArr.push(movie);
+			}
+		});
+		return newArr;
+	}
 
-// Creating a filtered array of elements to pass to the carousel
-  filterArr(arr){
-    let newArr = [];
-    // arr.map(item => {
-    //   if(item.vote_average > 7.1 && item.title !== 'The Shape of Water'){
-    //     newArr.push(item)
-    //   }
-    arr.filter((movie) => {
-      if(movie.title === 'Thor: Ragnarok' || movie.title === 'Insidious: The Last Key' || movie.title === 'Sleight'){
-        newArr.push(movie);
-      }
-    })
-    return newArr;
-}
+	componentDidMount() {
+		// Toggle loading spinner before page loads
+		this.toggleSpinner();
+		setTimeout(
+			function() {
+				this.toggleSpinner();
+			}.bind(this),
+			5000
+		);
+		// Get promises for some categories
+		const promises = [
+			this.getMoviesURL('popular'),
+			this.getMoviesURL('top_rated'),
+			this.getMoviesURL('upcoming')
+		];
+		// Resolve said promises
+		Promise.all(promises).then(values =>
+			this.setState({
+				popular: values[0].results,
+				carousel: this.filterArr(values[0].results),
+				topRated: values[1].results.filter(
+					movie => movie.original_title !== 'Twin Peaks'
+				),
+				upcoming: values[2].results.filter(
+					movie => movie.original_title !== 'Extinction'
+				)
+			})
+		);
+	}
 
-  componentDidMount() {
-  // Toggle loading spinner before page loads
-    this.toggleSpinner();
-      setTimeout(function(){
-    this.toggleSpinner();
-  }.bind(this),5000);
-  // Get promises for some categories
-   const promises = [
-   this.getMoviesURL('popular'),
-   this.getMoviesURL('top_rated'),
-   this.getMoviesURL('upcoming'),
-]
-  // Resolve said promises
-  Promise.all(promises).then((values) => this.setState({
-    popular:values[0].results,
-    carousel:this.filterArr(values[0].results),
-    topRated:values[1].results.filter((movie) => movie.original_title !== 'Twin Peaks'),
-    upcoming:values[2].results.filter((movie) => movie.original_title !== 'Extinction')
-  }))
-  }
+	// Function that displays a loading animation
+	toggleSpinner = () => {
+		this.state.loading === true
+			? this.setState({ loading: false })
+			: this.setState({ loading: true });
+		document.querySelector('.hide-load').classList.toggle('show-load');
+		document.querySelector('body').classList.toggle('body-load');
+		console.log(this.state.loading);
+		console.log('You clicked the button');
+	};
 
-  // Function that displays a loading animation
-  toggleSpinner = () => {
-    this.state.loading===true ? this.setState({loading:false}) : this.setState({loading:true});
-    document.querySelector('.hide-load').classList.toggle('show-load');
-    document.querySelector('body').classList.toggle('body-load');
-    console.log(this.state.loading);
-    console.log('You clicked the button');
-   }
+	// passName = (name) => {
+	//   // this.setState({movieTitle:name});
+	//   console.log()
+	// }
 
-   // passName = (name) => {
-   //   // this.setState({movieTitle:name});
-   //   console.log()
-   // }
-
-
-  // Render all the components in '/' route
-  render() {
-    return (
-      <div className="Main">
-        <Search />
-        <MovieCarousel movies = {this.state.carousel} />
-        <MovieList passName = {this.props.passName} toggleSpinner = {this.toggleSpinner} title = 'Popular' movieList = {this.state.popular}/>
-        <MovieList toggleSpinner = {this.toggleSpinner} title = 'Top Rated' movieList = {this.state.topRated}/>
-        {/* <MovieList toggleSpinner = {this.toggleSpinner} title = 'Upcoming' movieList = {this.state.upcoming}/> */}
-        {this.state.loading && <Spinner load = {this.state.loading} />}
-        {/* Div that handles the display of the spinner */}
-        <div className = "hide-load"></div>
-      </div>
-    );
-  }
+	// Render all the components in '/' route
+	render() {
+		return (
+			<div className="Main">
+				<Search />
+				<MovieCarousel movies={this.state.carousel} />
+				<MovieList
+					passName={this.props.passName}
+					toggleSpinner={this.toggleSpinner}
+					title="Popular"
+					movieList={this.state.popular}
+				/>
+				<MovieList
+					toggleSpinner={this.toggleSpinner}
+					title="Top Rated"
+					movieList={this.state.topRated}
+				/>
+				{/* <MovieList toggleSpinner = {this.toggleSpinner} title = 'Upcoming' movieList = {this.state.upcoming}/> */}
+				{this.state.loading && <Spinner load={this.state.loading} />}
+				{/* Div that handles the display of the spinner */}
+				<div className="hide-load" />
+			</div>
+		);
+	}
 }
 
 export default Main;
