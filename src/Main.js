@@ -20,10 +20,10 @@ class Main extends Component {
 			loading: false
 		};
 	}
-	getMoviesURL(type, page = 1) {
+	getMoviesURL(type = '', page = 1, method = '', query = '' ) {
 		// The Movie Database API
 		const API_KEY = `795746de6623bafccfaa61bf42e3adb8`;
-		const URL = `https://api.themoviedb.org/3/movie/${type}?api_key=${API_KEY}&language=en-US&page=${page}`;
+		const URL = `https://api.themoviedb.org/3/${method}movie${type}?api_key=${API_KEY}&language=en-US${query}&page=${page}`;
 		return fetch(URL).then(response => response.json());
 	}
 
@@ -57,9 +57,9 @@ class Main extends Component {
 		);
 		// Get promises for some categories
 		const promises = [
-			this.getMoviesURL('popular'),
-			this.getMoviesURL('top_rated'),
-			this.getMoviesURL('upcoming')
+			this.getMoviesURL('/popular'),
+			this.getMoviesURL('/top_rated'),
+			this.getMoviesURL('/upcoming')
 		];
 		// Resolve said promises
 		Promise.all(promises).then(values =>
@@ -96,7 +96,7 @@ class Main extends Component {
 	render() {
 		return (
 			<div className="Main">
-				<Search />
+				<Search getMoviesURL = {this.getMoviesURL} />
 				<MovieCarousel movies={this.state.carousel} />
 				<MovieList
 					passName={this.props.passName}

@@ -3,9 +3,9 @@ import { Link, Redirect } from 'react-router-dom';
 
 const Movie = (props) => {
   console.log(`Movie Title in Movie.js is: ${props.movieTitle}`);
-  if(props.movieTitle === null){
-    return <Redirect to="/" />
-  } else {
+  // if(props.movieTitle === null){
+  //   return <Redirect to="/" />
+  // } else {
     return (
       // <ul>
       <div>
@@ -17,6 +17,6 @@ const Movie = (props) => {
       // </ul>
     )
   }
-}
+// }
 
 export default Movie;
