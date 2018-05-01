@@ -27,9 +27,8 @@ class Search extends Component {
 				'Crach',
 				'Grenver'
 			],
-			results: [],
-			submitted:false
-		};
+			results: []
+				};
 	}
 
 	searchProm = t => {
@@ -79,18 +78,30 @@ class Search extends Component {
 	// 	// .then((filteredArr) => this.setState({results:filteredArr}));
 	// };
 
-	handleEnterKey = (ev) => {
-		if(ev.charCode === 13){
-			this.props.getMoviesURL('', 1, 'search/', `&query=${ev.target.value}`)
-			.then(data => {
-				console.log(data);
-				this.setState({submitted:true});
-			})
-		}
+	// handleSearchInput = (event) => {
+	// 	if(event.charCode === 13){
+	// 		this.props.getMoviesURL('', 1, 'search/', `&query=${event.target.value}`)
+	// 		.then(data => {
+	// 			console.log(data);
+	// 			if(data.total_results > 1){
+	// 					this.setState({foundMovies:true});
+	// 			} else {
+	// 					this.setState({foundMovie:true});
+	// 			}
+	// 		})
+	// 	}
+	// }
+
+	componentWillUnmount() {
+			this.props.changeFoundMoviesFalse();
 	}
 
 	render() {
-		if(this.state.submitted){
+		if(this.props.foundMovies){
+			return (
+				<Redirect to = '/movies' />
+			)
+		} else if(this.props.foundMovie){
 			return (
 				<Redirect to = '/movie' />
 			)
@@ -102,7 +113,8 @@ class Search extends Component {
 					type="text"
 					placeholder="Search movie..."
 					onChange={this.displayQuery}
-					onKeyPress = {this.handleEnterKey}
+					onKeyPress = {(ev) => this.props.handleSearchInput(ev, this.props.getMoviesURL)}
+					// onKeyPress = {this.handleSearchInput}
 				/>
 				<SearchList className="searchList" results={this.state.results} />
 			</div>

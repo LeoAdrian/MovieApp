@@ -3,6 +3,7 @@ import MovieCarousel from './components/movie_carousel';
 import MovieList from './components/movie_list';
 import Spinner from './components/spinner';
 import Search from './components/search';
+import { Redirect } from 'react-router-dom';
 
 // Url used to build the images
 const POSTER_URL = `https://image.tmdb.org/t/p/`;
@@ -48,13 +49,13 @@ class Main extends Component {
 
 	componentDidMount() {
 		// Toggle loading spinner before page loads
-		this.toggleSpinner();
-		setTimeout(
-			function() {
-				this.toggleSpinner();
-			}.bind(this),
-			5000
-		);
+		// this.toggleSpinner();
+		// setTimeout(
+		// 	function() {
+		// 		this.toggleSpinner();
+		// 	}.bind(this),
+		// 	5000
+		// );
 		// Get promises for some categories
 		const promises = [
 			this.getMoviesURL('/popular'),
@@ -96,7 +97,12 @@ class Main extends Component {
 	render() {
 		return (
 			<div className="Main">
-				<Search getMoviesURL = {this.getMoviesURL} />
+				<Search
+					changeFoundMoviesFalse = {this.props.changeFoundMoviesFalse}
+					foundMovie = {this.props.foundMovie}
+					foundMovies = {this.props.foundMovies}
+					handleSearchInput  = {this.props.handleSearchInput}
+					getMoviesURL = {this.getMoviesURL} />
 				<MovieCarousel movies={this.state.carousel} />
 				<MovieList
 					passName={this.props.passName}
