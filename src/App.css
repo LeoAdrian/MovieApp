@@ -63,7 +63,6 @@ h1 {
 h3 {
 	color: black;
 	text-align: center;
-	border: 1px solid white;
 }
 
 .slick-next {
@@ -189,6 +188,7 @@ button:focus {
 	display: none;
 }
 
+/* Style for search component */
 .search-list {
 	position: absolute;
 	background-color: white;
@@ -204,4 +204,41 @@ button:focus {
 .search-movie input {
 	width: 100%;
 	padding-left: 40px;
+}
+
+/* Styles for displaying a movie or a movie list */
+.movie-page h4 {
+	color: white;
+	text-align: center;
+}
+
+.movie-page a {
+	position: relative;
+	bottom: 0;
+}
+
+.list-component {
+	display: flex;
+	flex-flow: column;
+	/* align-items: center; */
+}
+
+.list-of-movies {
+	display: flex;
+	flex-flow: wrap;
+	justify-content: center;
+	margin-top: 20px;
+}
+
+.list-of-movies .movie-comp {
+	display: flex;
+	justify-content: space-around;
+	flex-basis: 30%;
+	padding: 20px;
+}
+
+.list-of-movies .movie-info {
+	flex: 1;
+	padding: 0;
+	border: 1px solid white;
 }

@@ -21,10 +21,10 @@ class Main extends Component {
 			loading: false
 		};
 	}
-	getMoviesURL(type = '', page = 1, method = '', query = '' ) {
+	getMoviesURL(type = '', page = 1, method = '', query = '', id = '') {
 		// The Movie Database API
 		const API_KEY = `795746de6623bafccfaa61bf42e3adb8`;
-		const URL = `https://api.themoviedb.org/3/${method}movie${type}?api_key=${API_KEY}&language=en-US${query}&page=${page}`;
+		const URL = `https://api.themoviedb.org/3/${method}movie${type}${id}?api_key=${API_KEY}&language=en-US${query}&page=${page}`;
 		return fetch(URL).then(response => response.json());
 	}
 
@@ -98,11 +98,12 @@ class Main extends Component {
 		return (
 			<div className="Main">
 				<Search
-					changeFoundMoviesFalse = {this.props.changeFoundMoviesFalse}
-					foundMovie = {this.props.foundMovie}
-					foundMovies = {this.props.foundMovies}
-					handleSearchInput  = {this.props.handleSearchInput}
-					getMoviesURL = {this.getMoviesURL} />
+					changeFoundMoviesFalse={this.props.changeFoundMoviesFalse}
+					foundMovie={this.props.foundMovie}
+					foundMovies={this.props.foundMovies}
+					handleSearchInput={this.props.handleSearchInput}
+					getMoviesURL={this.getMoviesURL}
+				/>
 				<MovieCarousel movies={this.state.carousel} />
 				<MovieList
 					passName={this.props.passName}
