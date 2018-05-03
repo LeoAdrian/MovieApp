@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import SearchList from './search_list';
-import {Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 const getElement = ({ capitalized, text }) => (
 	<li key={capitalized + text}>
@@ -28,7 +28,7 @@ class Search extends Component {
 				'Grenver'
 			],
 			results: []
-				};
+		};
 	}
 
 	searchProm = t => {
@@ -93,27 +93,25 @@ class Search extends Component {
 	// }
 
 	componentWillUnmount() {
-			this.props.changeFoundMoviesFalse();
+		this.props.changeFoundMoviesFalse();
 	}
 
 	render() {
-		if(this.props.foundMovies){
-			return (
-				<Redirect to = '/movies' />
-			)
-		} else if(this.props.foundMovie){
-			return (
-				<Redirect to = '/movie' />
-			)
+		if (this.props.foundMovies) {
+			return <Redirect to="/movies" />;
+		} else if (this.props.foundMovie) {
+			return <Redirect to="/movie" />;
 		}
 		return (
 			<div className="search-movie">
 				<input
-					ref = { el => this.inputTitle = el }
+					ref={el => (this.inputTitle = el)}
 					type="text"
 					placeholder="Search movie..."
 					onChange={this.displayQuery}
-					onKeyPress = {(ev) => this.props.handleSearchInput(ev, this.props.getMoviesURL)}
+					onKeyPress={ev =>
+						this.props.handleSearchInput(ev, this.props.getMoviesURL)
+					}
 					// onKeyPress = {this.handleSearchInput}
 				/>
 				<SearchList className="searchList" results={this.state.results} />

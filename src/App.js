@@ -27,8 +27,7 @@ class App extends Component {
 			foundMovie: false,
 			foundMovies: false,
 			singleMovie: null,
-			listOfMovies: null,
-			some: [1, 2, 3, 4, 5, 6, 7]
+			listOfMovies: null
 		};
 	}
 
@@ -44,9 +43,20 @@ class App extends Component {
 		if (event.charCode === 13) {
 			fetchFunc('', 1, 'search/', `&query=${inputVal}`)
 				.then(data => {
+					let dateObj = new Date();
+					let actualDate = `${dateObj.getFullYear()}-${dateObj.getMonth()}-${dateObj.getDay()}`;
 					console.log(data);
+					// Only get movies that released already
+					// that have genres, posters/images and
+					// if the movie has video prop false
 					let filteredData = data.results.filter(movie => {
-						return movie.backdrop_path !== null;
+						return (
+							// movie.backdrop_path !== null &&
+							// movie.genre_ids.length > 0 &&
+							actualDate > movie.release_date &&
+							movie.video !== true &&
+							movie.vote_count > 600
+						);
 					});
 					return [filteredData, data];
 				})
@@ -79,6 +89,25 @@ class App extends Component {
 		}
 	}
 
+	setSinglePromise = m => {
+		return new Promise((reject, resolve) => {
+			this.setState({ singleMovie: m });
+		});
+	};
+
+	setMovie = mov => {
+		// this.setSinglePromise(mov)
+		// 	.then(() => this.setState({ foundMovie: true }))
+		// 	.then(() => console.log(this.state.singleMovie));
+		this.setState({ singleMovie: mov }, _ =>
+			this.setState({ foundMovie: true })
+		);
+	};
+
+	componentWillUnmount() {
+		this.changeFoundMovies();
+	}
+
 	render() {
 		return (
 			<Router>
@@ -104,6 +133,8 @@ class App extends Component {
 							<Movies
 								{...this.state}
 								changeFoundMovies={this.changeFoundMovies}
+								setMovie={this.setMovie}
+								changeFoundMoviesFalse={this.changeFoundMoviesFalse}
 							/>
 						)}
 					/>
