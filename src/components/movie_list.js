@@ -74,6 +74,7 @@ class MovieList extends Component {
 						showComponent={() => this.toggleComponent(true)}
 						onMovieSelect={this.setSelected.bind(this)}
 						movie={movie}
+						setMovie={this.props.setMovie}
 					/>
 				</div>
 			);

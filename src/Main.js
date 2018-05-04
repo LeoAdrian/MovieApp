@@ -36,12 +36,10 @@ class Main extends Component {
 		//     newArr.push(item)
 		//   }
 		arr.filter(movie => {
-			if (
-				movie.title === 'Thor: Ragnarok' ||
-				movie.title === 'Insidious: The Last Key' ||
-				movie.title === 'Sleight'
-			) {
+			if (newArr.length <= 4) {
 				newArr.push(movie);
+			} else {
+				return;
 			}
 		});
 		return newArr;
@@ -110,6 +108,7 @@ class Main extends Component {
 					toggleSpinner={this.toggleSpinner}
 					title="Popular"
 					movieList={this.state.popular}
+					setMovie={this.props.setMovie}
 				/>
 				<MovieList
 					toggleSpinner={this.toggleSpinner}

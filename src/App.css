@@ -5,7 +5,7 @@ html {
 	background-color: white;
 	margin: 0;
 	box-sizing: border-box;
-	background: grey;
+	background: black;
 }
 
 body {
@@ -51,7 +51,7 @@ section {
 	margin-top: 50px;
 	background-size: cover;
 	background-repeat: no-repeat;
-	background-position: center;
+	background-position: top;
 	/* max-height:750px */
 	/* position:absolute; */
 }
@@ -203,33 +203,63 @@ button:focus {
 
 .search-movie {
 	position: relative;
-	width: 30%;
+	width: 40%;
+	margin: 0 auto;
+	margin-top: 10px;
 }
 
 .search-movie input {
 	width: 100%;
 	padding-left: 40px;
+	border-radius: 5px;
+	border: hidden;
 }
 
 /* Styles for displaying a movie or a movie list */
+.movie-container {
+	display: flex;
+	padding: 50px;
+}
+
+.poster-container {
+	position: relative;
+	top: 20%;
+}
+
+.description-container {
+	position: relative;
+}
 
 .movie-page h1 {
 	color: white;
-	text-align: center;
+	/* text-align: center;
 	position: absolute;
 	left: 50%;
-	transform: translateX(-50%);
+	transform: translateX(-50%); */
 }
 
 .movie-page a {
-	position: relative;
+	/* position: relative;
 	bottom: 0;
+	z-index: 2; */
 }
 
 .movie-page img {
-	position: absolute;
+	/* position: absolute;
 	top: 50%;
 	transform: translateY(-50%);
+	left: 5%;
+	z-index: 2; */
+}
+
+.movie-page-text {
+	color: white;
+	z-index: 2;
+}
+
+.movie-page div {
+	color: white;
+	flex-basis: 40%;
 }
 
 .list-component {

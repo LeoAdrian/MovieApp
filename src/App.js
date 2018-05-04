@@ -89,14 +89,14 @@ class App extends Component {
 		}
 	}
 
-	setSinglePromise = m => {
-		return new Promise((reject, resolve) => {
-			this.setState({ singleMovie: m });
-		});
-	};
+	// setSinglePromise = m => {
+	// 	return new Promise((reject, resolve) => {
+	// 		resolve(this.setState({ singleMovie: m }));
+	// 	});
+	// };
 
 	setMovie = mov => {
-		// this.setSinglePromise(mov)
+		// this.setSinglePromise(mo).then(() => console.log('sdsd'));
 		// 	.then(() => this.setState({ foundMovie: true }))
 		// 	.then(() => console.log(this.state.singleMovie));
 		this.setState({ singleMovie: mov }, _ =>
@@ -122,6 +122,7 @@ class App extends Component {
 								foundMovies={this.state.foundMovies}
 								passName={this.passName}
 								handleSearchInput={this.handleSearchInput}
+								setMovie={this.setMovie}
 							/>
 						)}
 					/>
