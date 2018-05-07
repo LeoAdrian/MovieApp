@@ -17,8 +17,8 @@ class Main extends Component {
 			popular: [],
 			carousel: [],
 			topRated: [],
-			upcoming: [],
-			loading: false
+			upcoming: []
+			// loading: false
 		};
 	}
 	getMoviesURL(type = '', page = 1, method = '', query = '', id = '') {
@@ -76,15 +76,15 @@ class Main extends Component {
 	}
 
 	// Function that displays a loading animation
-	toggleSpinner = () => {
-		this.state.loading === true
-			? this.setState({ loading: false })
-			: this.setState({ loading: true });
-		document.querySelector('.hide-load').classList.toggle('show-load');
-		document.querySelector('body').classList.toggle('body-load');
-		console.log(this.state.loading);
-		console.log('You clicked the button');
-	};
+	// toggleSpinner = () => {
+	// 	this.state.loading === true
+	// 		? this.setState({ loading: false })
+	// 		: this.setState({ loading: true });
+	// 	document.querySelector('.hide-load').classList.toggle('show-load');
+	// 	document.querySelector('body').classList.toggle('body-load');
+	// 	console.log(this.state.loading);
+	// 	console.log('You clicked the button');
+	// };
 
 	// passName = (name) => {
 	//   // this.setState({movieTitle:name});

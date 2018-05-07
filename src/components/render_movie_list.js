@@ -15,7 +15,11 @@ const RenderList = props => {
 			<div className="movie-info">
 				<h3>{movie.title}</h3>
 			</div> */}
-			<MovieListItem setMovie={props.setMovie} movie={movie} />
+			<MovieListItem
+				toggleSpinner={props.toggleSpinner}
+				setMovie={props.setMovie}
+				movie={movie}
+			/>
 		</div>
 	));
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import WatchMovieBt from '../components/watch-movie-button';
+import sendTorrent from '../utils/send_torrent_name';
 import { Link, Redirect } from 'react-router-dom';
 
 const Movie = props => {
@@ -9,6 +11,7 @@ const Movie = props => {
 	let backgroundUrl = `https://image.tmdb.org/t/p/original${
 		props.singleMovie.backdrop_path
 	}`;
+	let resolution = '720p';
 	// props.singleMovie.belongs_to_collection === null
 	// 	? (backgroundUrl =)
 	// 	: (backgroundUrl = `https://image.tmdb.org/t/p/original${
@@ -27,6 +30,7 @@ const Movie = props => {
 		filter: 'blur(2px)',
 		position: 'absolute'
 	};
+
 	return (
 		// <ul>
 		<div className="movie-page">
@@ -38,6 +42,36 @@ const Movie = props => {
 				<div className="description-container">
 					<h1>{props.singleMovie.title}</h1>
 					<div className="movie-page-text">{props.singleMovie.overview}</div>
+					<WatchMovieBt
+						toggleSpinner={props.toggleSpinner}
+						resolution={resolution}
+						sendTorrent={sendTorrent}
+						singleMovie={props.singleMovie}
+					/>
+					{/* Toggle button for resolution */}
+					<label className="switch">
+						<input type="checkbox" id="togBtn" />
+						<div className="sliderBt round">
+							<span
+								onClick={() => {
+									resolution = '720p';
+									console.log(resolution);
+								}}
+								className="on"
+							>
+								1080p
+							</span>
+							<span
+								onClick={() => {
+									resolution = '1080p';
+									console.log(resolution);
+								}}
+								className="off"
+							>
+								720p
+							</span>
+						</div>
+					</label>
 					<div>
 						<Link to="/">Go to homepage</Link>
 					</div>

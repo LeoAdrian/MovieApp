@@ -3,6 +3,7 @@ import './App.css';
 import Main from './Main.js';
 import Movie from './routes/movie';
 import Movies from './routes/movies';
+import Spinner from './components/spinner';
 import {
 	BrowserRouter as Router,
 	Route,
@@ -11,7 +12,6 @@ import {
 } from 'react-router-dom';
 import MovieCarousel from './components/movie_carousel';
 import MovieList from './components/movie_list';
-import Spinner from './components/spinner';
 
 // Url used to build the images
 const POSTER_URL = `https://image.tmdb.org/t/p/`;
@@ -22,12 +22,12 @@ class App extends Component {
 		super(props);
 
 		this.state = {
-			loading: false,
 			movieTitle: null,
 			foundMovie: false,
 			foundMovies: false,
 			singleMovie: null,
-			listOfMovies: null
+			listOfMovies: null,
+			loading: false
 		};
 	}
 
@@ -35,6 +35,18 @@ class App extends Component {
 	passName = name => {
 		this.setState({ singleMovie: name });
 	};
+
+	componentDidMount() {
+		// Toggle loading spinner before page loads
+		this.toggleSpinner();
+		// console.log(this.state.loading);
+		setTimeout(
+			function() {
+				this.toggleSpinner();
+			}.bind(this),
+			3000
+		);
+	}
 
 	// Function that sets found movies/movie from search component
 	handleSearchInput = (event, fetchFunc) => {
@@ -104,9 +116,15 @@ class App extends Component {
 		);
 	};
 
-	componentWillUnmount() {
-		this.changeFoundMovies();
-	}
+	toggleSpinner = () => {
+		this.state.loading === true
+			? this.setState({ loading: false })
+			: this.setState({ loading: true });
+		document.querySelector('.hide-load').classList.toggle('show-load');
+		document.querySelector('body').classList.toggle('body-load');
+		console.log(this.state.loading);
+		console.log('You clicked the button');
+	};
 
 	render() {
 		return (
@@ -136,9 +154,14 @@ class App extends Component {
 								changeFoundMovies={this.changeFoundMovies}
 								setMovie={this.setMovie}
 								changeFoundMoviesFalse={this.changeFoundMoviesFalse}
+								toggleSpinner={this.toggleSpinner}
 							/>
 						)}
 					/>
+					{this.state.loading && <Spinner load={this.state.loading} />}
+					{/* {this.state.loading && <Spinner load={this.state.loading} />} */}
+
+					<div className="hide-load" />
 				</div>
 			</Router>
 		);

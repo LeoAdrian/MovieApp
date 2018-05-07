@@ -156,7 +156,7 @@ button:focus {
 }
 
 .sweet-loading {
-	z-index: 3;
+	z-index: 30;
 }
 
 .load-msg {
@@ -290,4 +290,93 @@ button:focus {
 
 .movie-as-poster {
 	cursor: pointer;
+}
+
+/* Toggle button */
+.switch {
+	position: relative;
+	display: block;
+	width: 100px;
+	height: 34px;
+}
+
+.switch input {
+	display: none;
+}
+
+.sliderBt {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #2ab934;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+.sliderBt:before {
+	position: absolute;
+	content: '';
+	height: 26px;
+	width: 26px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+
+input:focus + .sliderBt {
+	box-shadow: 0 0 1px #2196f3;
+}
+
+input:checked + .sliderBt:before {
+	-webkit-transform: translateX(55px);
+	-ms-transform: translateX(55px);
+	transform: translateX(65px);
+}
+
+/*------ ADDED CSS ---------*/
+.on {
+	display: none;
+}
+
+.off {
+	display: flex;
+}
+
+.on,
+.off {
+	width: 100%;
+	height: 100%;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	position: absolute;
+	/* transform: translate(-50%, -50%);
+	top: 50%;
+	left: 50%; */
+	font-size: 10px;
+	font-family: Verdana, sans-serif;
+}
+
+input:checked + .sliderBt .on {
+	display: flex;
+}
+
+input:checked + .sliderBt .off {
+	display: none;
+}
+
+/*--------- END --------*/
+
+/* Rounded sliders */
+.sliderBt.round {
+	border-radius: 34px;
+}
+
+.sliderBt.round:before {
+	border-radius: 50%;
 }
