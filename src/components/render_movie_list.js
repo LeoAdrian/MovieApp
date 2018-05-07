@@ -16,7 +16,6 @@ const RenderList = props => {
 				<h3>{movie.title}</h3>
 			</div> */}
 			<MovieListItem
-				toggleSpinner={props.toggleSpinner}
 				setMovie={props.setMovie}
 				movie={movie}
 			/>

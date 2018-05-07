@@ -1,17 +1,17 @@
 import React, { Component } from 'react';
 import './App.css';
 import Main from './Main.js';
+import Spinner from './components/spinner';
 import Movie from './routes/movie';
 import Movies from './routes/movies';
-import Spinner from './components/spinner';
+import MovieList from './components/movie_list';
+import MovieCarousel from './components/movie_carousel';
 import {
 	BrowserRouter as Router,
 	Route,
 	Link,
 	Redirect
 } from 'react-router-dom';
-import MovieCarousel from './components/movie_carousel';
-import MovieList from './components/movie_list';
 
 // Url used to build the images
 const POSTER_URL = `https://image.tmdb.org/t/p/`;
@@ -27,7 +27,7 @@ class App extends Component {
 			foundMovies: false,
 			singleMovie: null,
 			listOfMovies: null,
-			loading: false
+			loaded:false
 		};
 	}
 
@@ -36,15 +36,25 @@ class App extends Component {
 		this.setState({ singleMovie: name });
 	};
 
+	// // Function that displays a loading animation
+	toggleSpinner = () => {
+		this.state.loaded
+			? this.setState({ loaded: false })
+			: this.setState({ loaded: true });
+		document.querySelector('.hide-load').classList.toggle('show-load');
+		document.querySelector('body').classList.toggle('body-load');
+		console.log(this.state.loaded);
+		console.log('You clicked the button');
+	};
+
 	componentDidMount() {
-		// Toggle loading spinner before page loads
 		this.toggleSpinner();
-		// console.log(this.state.loading);
+		// Toggle loading spinner before page loads
 		setTimeout(
 			function() {
 				this.toggleSpinner();
 			}.bind(this),
-			3000
+			5000
 		);
 	}
 
@@ -94,7 +104,7 @@ class App extends Component {
 	};
 
 	shouldComponentUpdate(prevProps, prevState, nextProps, nextState) {
-		if (prevState.foundMovies || prevState.foundMovie) {
+		if (prevState.foundMovies || prevState.foundMovie || prevState.loaded || !prevState.loaded) {
 			return true;
 		} else {
 			return false;
@@ -116,18 +126,9 @@ class App extends Component {
 		);
 	};
 
-	toggleSpinner = () => {
-		this.state.loading === true
-			? this.setState({ loading: false })
-			: this.setState({ loading: true });
-		document.querySelector('.hide-load').classList.toggle('show-load');
-		document.querySelector('body').classList.toggle('body-load');
-		console.log(this.state.loading);
-		console.log('You clicked the button');
-	};
-
 	render() {
 		return (
+			<div>
 			<Router>
 				<div className="App">
 					<Route
@@ -144,7 +145,7 @@ class App extends Component {
 							/>
 						)}
 					/>
-					<Route exact path="/movie" render={() => <Movie {...this.state} />} />
+					<Route exact path="/movie" render={() => <Movie toggleSpinner={this.toggleSpinner} {...this.state} />} />
 					<Route
 						exact
 						path="/movies"
@@ -154,16 +155,16 @@ class App extends Component {
 								changeFoundMovies={this.changeFoundMovies}
 								setMovie={this.setMovie}
 								changeFoundMoviesFalse={this.changeFoundMoviesFalse}
-								toggleSpinner={this.toggleSpinner}
 							/>
 						)}
 					/>
-					{this.state.loading && <Spinner load={this.state.loading} />}
-					{/* {this.state.loading && <Spinner load={this.state.loading} />} */}
-
-					<div className="hide-load" />
 				</div>
 			</Router>
+
+			{this.state.loaded && <Spinner loaded={this.state.loaded} />}
+			{/* Div that handles the display of the spinner */}
+			<div className="hide-load" />
+		</div>
 		);
 	}
 }

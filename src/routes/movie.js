@@ -42,12 +42,7 @@ const Movie = props => {
 				<div className="description-container">
 					<h1>{props.singleMovie.title}</h1>
 					<div className="movie-page-text">{props.singleMovie.overview}</div>
-					<WatchMovieBt
-						toggleSpinner={props.toggleSpinner}
-						resolution={resolution}
-						sendTorrent={sendTorrent}
-						singleMovie={props.singleMovie}
-					/>
+
 					{/* Toggle button for resolution */}
 					<label className="switch">
 						<input type="checkbox" id="togBtn" />
@@ -72,6 +67,12 @@ const Movie = props => {
 							</span>
 						</div>
 					</label>
+					<WatchMovieBt
+						toggleSpinner={props.toggleSpinner}
+						resolution={resolution}
+						sendTorrent={sendTorrent}
+						singleMovie={props.singleMovie}
+					/>
 					<div>
 						<Link to="/">Go to homepage</Link>
 					</div>

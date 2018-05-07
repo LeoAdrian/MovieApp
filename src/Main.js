@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import MovieCarousel from './components/movie_carousel';
 import MovieList from './components/movie_list';
-import Spinner from './components/spinner';
 import Search from './components/search';
 import { Redirect } from 'react-router-dom';
 
@@ -18,7 +17,6 @@ class Main extends Component {
 			carousel: [],
 			topRated: [],
 			upcoming: []
-			// loading: false
 		};
 	}
 	getMoviesURL(type = '', page = 1, method = '', query = '', id = '') {
@@ -115,10 +113,6 @@ class Main extends Component {
 					title="Top Rated"
 					movieList={this.state.topRated}
 				/>
-				{/* <MovieList toggleSpinner = {this.toggleSpinner} title = 'Upcoming' movieList = {this.state.upcoming}/> */}
-				{this.state.loading && <Spinner load={this.state.loading} />}
-				{/* Div that handles the display of the spinner */}
-				<div className="hide-load" />
 			</div>
 		);
 	}

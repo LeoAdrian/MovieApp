@@ -8,8 +8,8 @@ const WatchMovieBt = props => {
 		)} ${props.resolution}`
 	};
 
-	const loadTorrent = event => {
-		props.sendTorrent(event, data);
+	const loadTorrent = (event) => {
+		props.sendTorrent(event, data, props.toggleSpinner);
 		props.toggleSpinner();
 	};
 

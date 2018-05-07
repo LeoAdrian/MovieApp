@@ -26,7 +26,6 @@ class Movies extends Component {
 		return (
 			<div>
 				<RenderList
-					toggleSpinner={this.props.toggleSpinner}
 					setMovie={this.props.setMovie}
 					listOfMovies={this.props.listOfMovies}
 				/>

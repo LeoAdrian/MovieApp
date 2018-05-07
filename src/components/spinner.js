@@ -7,10 +7,11 @@ class Spinner extends React.Component {
 	}
 
 	render() {
+		console.log('Component reached');
 		return (
 			<div className="sweet-loading">
-				<BounceLoader color={'#36D7B7'} loading={true} size="70" />
-				<div className="load-msg">Please wait for the movie to load...</div>
+				<BounceLoader color={'#36D7B7'} loading={this.props.loaded} size="70" />
+				<div className="load-msg">Please wait...</div>
 			</div>
 		);
 	}
