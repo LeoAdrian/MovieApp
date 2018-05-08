@@ -10,22 +10,22 @@ const postTorrent = (ev, data, spinnerFunc) => {
 		data: data,
 		success: function(rec) {
 			// let checkStatus = setInterval(open => {
-				if (rec === true) {
-					// openTab()
-					// .then(() => {
-					// console.log(`Data was retrieved: ${rec}\n Stop checking for threshold`);
-					// clearInterval(checkStatus);
+			if (rec) {
+				// openTab()
+				// .then(() => {
+				// console.log(`Data was retrieved: ${rec}\n Stop checking for threshold`);
+				// clearInterval(checkStatus);
 
-					// })
-					// .then(() => {
-					spinnerFunc();
-					// console.log(`Spinner is removed`);
-					// });
-				}
+				// })
+				// .then(() => {
+				spinnerFunc();
+				// console.log(`Spinner is removed`);
+				// });
+			}
 			// }, 1000);
 			// console.log(rec);
 		},
-		error: function(err){
+		error: function(err) {
 			spinnerFunc();
 			window.alert('Bad response from server');
 		},

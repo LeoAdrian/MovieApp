@@ -11,7 +11,6 @@ const Movie = props => {
 	let backgroundUrl = `https://image.tmdb.org/t/p/original${
 		props.singleMovie.backdrop_path
 	}`;
-	let resolution = '720p';
 	// props.singleMovie.belongs_to_collection === null
 	// 	? (backgroundUrl =)
 	// 	: (backgroundUrl = `https://image.tmdb.org/t/p/original${
@@ -48,19 +47,13 @@ const Movie = props => {
 						<input type="checkbox" id="togBtn" />
 						<div className="sliderBt round">
 							<span
-								onClick={() => {
-									resolution = '720p';
-									console.log(resolution);
-								}}
+								onClick={() => props.changeResolution('720p')}
 								className="on"
 							>
 								1080p
 							</span>
 							<span
-								onClick={() => {
-									resolution = '1080p';
-									console.log(resolution);
-								}}
+								onClick={() => props.changeResolution('1080p')}
 								className="off"
 							>
 								720p
@@ -69,7 +62,7 @@ const Movie = props => {
 					</label>
 					<WatchMovieBt
 						toggleSpinner={props.toggleSpinner}
-						resolution={resolution}
+						resolution={props.resolution}
 						sendTorrent={sendTorrent}
 						singleMovie={props.singleMovie}
 					/>

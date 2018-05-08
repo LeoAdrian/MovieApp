@@ -27,7 +27,8 @@ class App extends Component {
 			foundMovies: false,
 			singleMovie: null,
 			listOfMovies: null,
-			loaded:false
+			loaded: false,
+			resolution: '720p'
 		};
 	}
 
@@ -104,7 +105,12 @@ class App extends Component {
 	};
 
 	shouldComponentUpdate(prevProps, prevState, nextProps, nextState) {
-		if (prevState.foundMovies || prevState.foundMovie || prevState.loaded || !prevState.loaded) {
+		if (
+			prevState.foundMovies ||
+			prevState.foundMovie ||
+			prevState.loaded ||
+			!prevState.loaded
+		) {
 			return true;
 		} else {
 			return false;
@@ -126,45 +132,62 @@ class App extends Component {
 		);
 	};
 
+	changeResolution = res => {
+		this.setState({ resolution: res });
+		setTimeout(_ => {
+			console.log(`Resolution in state is: ${this.state.resolution}`);
+		}, 0);
+	};
+
 	render() {
 		return (
 			<div>
-			<Router>
-				<div className="App">
-					<Route
-						exact
-						path="/"
-						render={() => (
-							<Main
-								changeFoundMoviesFalse={this.changeFoundMoviesFalse}
-								foundMovie={this.state.foundMovie}
-								foundMovies={this.state.foundMovies}
-								passName={this.passName}
-								handleSearchInput={this.handleSearchInput}
-								setMovie={this.setMovie}
-							/>
-						)}
-					/>
-					<Route exact path="/movie" render={() => <Movie toggleSpinner={this.toggleSpinner} {...this.state} />} />
-					<Route
-						exact
-						path="/movies"
-						render={() => (
-							<Movies
-								{...this.state}
-								changeFoundMovies={this.changeFoundMovies}
-								setMovie={this.setMovie}
-								changeFoundMoviesFalse={this.changeFoundMoviesFalse}
-							/>
-						)}
-					/>
-				</div>
-			</Router>
+				<Router>
+					<div className="App">
+						<Route
+							exact
+							path="/"
+							render={() => (
+								<Main
+									changeFoundMoviesFalse={this.changeFoundMoviesFalse}
+									foundMovie={this.state.foundMovie}
+									foundMovies={this.state.foundMovies}
+									passName={this.passName}
+									handleSearchInput={this.handleSearchInput}
+									setMovie={this.setMovie}
+								/>
+							)}
+						/>
+						<Route
+							exact
+							path="/movie"
+							render={() => (
+								<Movie
+									{...this.state}
+									toggleSpinner={this.toggleSpinner}
+									changeResolution={this.changeResolution}
+								/>
+							)}
+						/>
+						<Route
+							exact
+							path="/movies"
+							render={() => (
+								<Movies
+									{...this.state}
+									changeFoundMovies={this.changeFoundMovies}
+									setMovie={this.setMovie}
+									changeFoundMoviesFalse={this.changeFoundMoviesFalse}
+								/>
+							)}
+						/>
+					</div>
+				</Router>
 
-			{this.state.loaded && <Spinner loaded={this.state.loaded} />}
-			{/* Div that handles the display of the spinner */}
-			<div className="hide-load" />
-		</div>
+				{this.state.loaded && <Spinner loaded={this.state.loaded} />}
+				{/* Div that handles the display of the spinner */}
+				<div className="hide-load" />
+			</div>
 		);
 	}
 }
