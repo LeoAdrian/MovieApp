@@ -15,18 +15,12 @@ const RenderList = props => {
 			<div className="movie-info">
 				<h3>{movie.title}</h3>
 			</div> */}
-			<MovieListItem
-				setMovie={props.setMovie}
-				movie={movie}
-			/>
+			<MovieListItem setMovie={props.setMovie} movie={movie} />
 		</div>
 	));
 
 	return (
 		<div className="list-component">
-			<Link to="/">
-				<button>Go to homepage</button>
-			</Link>
 			<div className="list-of-movies">{listMovies}</div>
 			<div />
 		</div>

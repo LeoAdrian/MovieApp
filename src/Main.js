@@ -109,9 +109,11 @@ class Main extends Component {
 					setMovie={this.props.setMovie}
 				/>
 				<MovieList
+					passName={this.props.setMovie}
 					toggleSpinner={this.toggleSpinner}
 					title="Top Rated"
 					movieList={this.state.topRated}
+					setMovie={this.props.setMovie}
 				/>
 			</div>
 		);

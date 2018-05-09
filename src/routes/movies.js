@@ -13,7 +13,7 @@ class Movies extends Component {
 	};
 
 	componentWillUnmount() {
-		this.props.changeFoundMoviesFalse();
+		// this.props.changeFoundMoviesFalse();
 	}
 
 	render() {
@@ -25,6 +25,8 @@ class Movies extends Component {
 		}
 		return (
 			<div>
+				<Link to="/">Go back</Link>
+
 				<RenderList
 					setMovie={this.props.setMovie}
 					listOfMovies={this.props.listOfMovies}
@@ -35,48 +37,3 @@ class Movies extends Component {
 }
 
 export default Movies;
-
-//Functional component
-// const Movies = props => {
-// 	if (props.listOfMovies === null) {
-// 		return <Redirect to="/" />;
-// 	}
-// 	if (props.foundMovie) {
-// 		return <Redirect to="/movie" />;
-// 	}
-// 	const posterURL = imgURL => {
-// 		return `https://image.tmdb.org/t/p/w185${imgURL}`;
-// 	};
-//
-// 	console.log('Movies component');
-// 	const listMovies = props.listOfMovies.map(movie => (
-// 		<div className="movie-comp" key={movie.id}>
-// 			{/* <img
-// 				className="movie-poster"
-// 				src={posterURL(movie.poster_path)}
-// 				width="185"
-// 				height="278"
-// 			/>
-// 			<div className="movie-info">
-// 				<h3>{movie.title}</h3>
-// 			</div> */}
-// 			<MovieListItem
-// 				changeFoundMoviesFalse={this.changeFoundMoviesFalse}
-// 				setMovie={props.setMovie}
-// 				movie={movie}
-// 			/>
-// 		</div>
-// 	));
-//
-// 	return (
-// 		<div className="list-component">
-// 			<Link to="/">
-// 				<button>Go to homepage</button>
-// 			</Link>
-// 			<div className="list-of-movies">{listMovies}</div>
-// 			<div />
-// 		</div>
-// 	);
-// };
-//
-// export default Movies;
