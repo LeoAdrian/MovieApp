@@ -13,24 +13,33 @@ class Movies extends Component {
 	};
 
 	componentWillUnmount() {
-		// this.props.changeFoundMoviesFalse();
+		this.props.changeFoundMoviesFalse();
+		this.props.changeSingleMovieFalse();
 	}
 
 	render() {
 		if (this.props.listOfMovies === null) {
-			return <Redirect to="/" />;
+			return <Redirect to="/" push />;
 		}
-		if (this.props.foundMovie) {
-			return <Redirect to="/movie" />;
-		}
+		// if (this.props.foundMovie) {
+		// 	return <Redirect to="/movie" push />;
+		// }
 		return (
 			<div>
 				<Link to="/">Go back</Link>
-
 				<RenderList
+					{...this.props}
 					setMovie={this.props.setMovie}
 					listOfMovies={this.props.listOfMovies}
 				/>
+				{/* <Route
+					path={`${props.path}`}
+					render={() => (
+						<Movie
+							toggleSpinner={this.toggleSpinner}
+							changeResolution={this.changeResolution}
+						/>
+				)} /> */}
 			</div>
 		);
 	}

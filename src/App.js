@@ -10,7 +10,8 @@ import {
 	BrowserRouter as Router,
 	Route,
 	Link,
-	Redirect
+	Redirect,
+	Switch
 } from 'react-router-dom';
 
 // Url used to build the images
@@ -86,22 +87,27 @@ class App extends Component {
 				.then(dataArr => {
 					// If more than one movie is found go to a route that renders a list of movies
 					// Else go to movie page
-					if (dataArr[0].length > 1) {
+					if (dataArr[0].length >= 1) {
 						this.setState({ foundMovies: true, listOfMovies: dataArr[0] });
-					} else {
-						fetchFunc('', 1, '', ``, `/${dataArr[1].results[0].id}`).then(
-							movieObj => {
-								console.log(movieObj);
-								this.setState({ foundMovie: true, singleMovie: movieObj });
-							}
-						);
 					}
+					//  else {
+					// 	fetchFunc('', 1, '', ``, `/${dataArr[1].results[0].id}`).then(
+					// 		movieObj => {
+					// 			console.log(movieObj);
+					// 			this.setState({ foundMovie: true, singleMovie: movieObj });
+					// 		}
+					// 	);
+					// }
 				});
 		}
 	};
 
 	changeFoundMoviesFalse = () => {
-		this.setState({ foundMovies: false, foundMovie: false });
+		this.setState({ foundMovies: false });
+	};
+
+	changeSingleMovieFalse = () => {
+		this.setState({ foundMovie: false });
 	};
 
 	shouldComponentUpdate(prevProps, prevState, nextProps, nextState) {
@@ -144,43 +150,37 @@ class App extends Component {
 			<div>
 				<Router>
 					<div className="App">
-						<Route
-							exact
-							path="/"
-							render={() => (
-								<Main
-									changeFoundMoviesFalse={this.changeFoundMoviesFalse}
-									foundMovie={this.state.foundMovie}
-									foundMovies={this.state.foundMovies}
-									passName={this.passName}
-									handleSearchInput={this.handleSearchInput}
-									setMovie={this.setMovie}
-								/>
-							)}
-						/>
-						<Route
-							exact
-							path="/movie"
-							render={() => (
-								<Movie
-									{...this.state}
-									toggleSpinner={this.toggleSpinner}
-									changeResolution={this.changeResolution}
-								/>
-							)}
-						/>
-						<Route
-							exact
-							path="/movies"
-							render={() => (
-								<Movies
-									{...this.state}
-									changeFoundMovies={this.changeFoundMovies}
-									setMovie={this.setMovie}
-									changeFoundMoviesFalse={this.changeFoundMoviesFalse}
-								/>
-							)}
-						/>
+						<Switch>
+							<Route
+								exact
+								path="/"
+								render={() => (
+									<Main
+										changeSingleMovieFalse={this.changeSingleMovieFalse}
+										changeFoundMoviesFalse={this.changeFoundMoviesFalse}
+										foundMovie={this.state.foundMovie}
+										foundMovies={this.state.foundMovies}
+										passName={this.passName}
+										handleSearchInput={this.handleSearchInput}
+										setMovie={this.setMovie}
+									/>
+								)}
+							/>
+							<Route
+								path="/movies"
+								{...this.state}
+								render={props => (
+									<Movies
+										{...this.state}
+										{...props}
+										changeFoundMovies={this.changeFoundMovies}
+										setMovie={this.setMovie}
+										changeFoundMoviesFalse={this.changeFoundMoviesFalse}
+										changeSingleMovieFalse={this.changeSingleMovieFalse}
+									/>
+								)}
+							/>
+						</Switch>
 					</div>
 				</Router>
 

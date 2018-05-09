@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import MovieCarousel from './components/movie_carousel';
 import MovieList from './components/movie_list';
 import Search from './components/search';
-import { Redirect } from 'react-router-dom';
+import { Redirect, Link } from 'react-router-dom';
 
 // Url used to build the images
 const POSTER_URL = `https://image.tmdb.org/t/p/`;
@@ -93,7 +93,9 @@ class Main extends Component {
 	render() {
 		return (
 			<div className="Main">
+				<Link to="/movies">Go to movies</Link>
 				<Search
+					changeSingleMovieFalse={this.props.changeSingleMovieFalse}
 					changeFoundMoviesFalse={this.props.changeFoundMoviesFalse}
 					foundMovie={this.props.foundMovie}
 					foundMovies={this.props.foundMovies}
@@ -101,20 +103,20 @@ class Main extends Component {
 					getMoviesURL={this.getMoviesURL}
 				/>
 				<MovieCarousel movies={this.state.carousel} />
-				<MovieList
+				{/* <MovieList
 					passName={this.props.passName}
 					toggleSpinner={this.toggleSpinner}
 					title="Popular"
 					movieList={this.state.popular}
 					setMovie={this.props.setMovie}
-				/>
-				<MovieList
+				/> */}
+				{/* <MovieList
 					passName={this.props.setMovie}
 					toggleSpinner={this.toggleSpinner}
 					title="Top Rated"
 					movieList={this.state.topRated}
 					setMovie={this.props.setMovie}
-				/>
+				/> */}
 			</div>
 		);
 	}

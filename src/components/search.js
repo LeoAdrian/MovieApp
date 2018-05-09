@@ -93,15 +93,18 @@ class Search extends Component {
 	// }
 
 	componentWillUnmount() {
-		this.props.changeFoundMoviesFalse();
+		this.props.foundMovies
+			? this.props.changeFoundMoviesFalse()
+			: this.props.changeSingleMovieFalse();
 	}
 
 	render() {
 		if (this.props.foundMovies) {
-			return <Redirect to="/movies" />;
-		} else if (this.props.foundMovie) {
-			return <Redirect to="/movie" />;
+			return <Redirect to="/movies" push />;
 		}
+		// } else if (this.props.foundMovie) {
+		// 	return <Redirect to="/movie" push />;
+		// }
 		return (
 			<div className="search-movie">
 				<input

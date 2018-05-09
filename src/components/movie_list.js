@@ -71,6 +71,7 @@ class MovieList extends Component {
 			return (
 				<div className="list_images" key={movie.id}>
 					<MovieListItem
+						changeSingleMovieFalse={this.props.changeSingleMovieFalse}
 						showComponent={() => this.toggleComponent(true)}
 						onMovieSelect={this.setSelected.bind(this)}
 						movie={movie}
@@ -90,7 +91,7 @@ class MovieList extends Component {
 				<Slider className="slider" {...this.state.settings}>
 					{this.band()}
 				</Slider>
-				<div className="show-detail">
+				{/* <div className="show-detail">
 					{this.state.active && (
 						<MovieDetail
 							passName={this.props.passName}
@@ -99,7 +100,7 @@ class MovieList extends Component {
 							selectedMovie={this.state.selectedMovie}
 						/>
 					)}
-				</div>
+				</div> */}
 			</div>
 		);
 	}
