@@ -79,7 +79,7 @@ class App extends Component {
 							// movie.genre_ids.length > 0 &&
 							actualDate > movie.release_date &&
 							movie.video !== true &&
-							movie.vote_count > 600
+							movie.vote_count > 500
 						);
 					});
 					return [filteredData, data];
@@ -163,6 +163,19 @@ class App extends Component {
 										passName={this.passName}
 										handleSearchInput={this.handleSearchInput}
 										setMovie={this.setMovie}
+									/>
+								)}
+							/>
+							<Route
+								{...this.state}
+								path="/movies/:title"
+								// render={_ => <div>Dsdsdsd</div>}
+								render={props => (
+									<Movie
+										changeResolution={this.changeResolution}
+										toggleSpinner={this.toggleSpinner}
+										{...props}
+										{...this.state}
 									/>
 								)}
 							/>
