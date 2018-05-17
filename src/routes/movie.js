@@ -29,7 +29,7 @@ const Movie = props => {
 		filter: 'blur(2px)',
 		position: 'absolute'
 	};
-	console.log(props);
+
 	return (
 		// <ul>
 		<div className="movie-page">

@@ -15,7 +15,7 @@ const MovieCarousel = ({ movies }) => {
 	// for each item in the array
 
 	const movieList = movies.map(movie => {
-		console.log(movie);
+		// console.log(movie);
 		return (
 			<div key={movie.id}>
 				<MovieItem movie={movie} />

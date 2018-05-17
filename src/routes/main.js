@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import MovieCarousel from './components/movie_carousel';
-import MovieList from './components/movie_list';
-import Search from './components/search';
+import MovieCarousel from '../components/movie_carousel';
+import MovieList from '../components/movie_list';
+import Search from '../components/search';
 import { Redirect, Link } from 'react-router-dom';
 
 // Url used to build the images

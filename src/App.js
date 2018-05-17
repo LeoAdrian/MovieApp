@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
-import Main from './Main.js';
+import Main from './routes/main.js';
 import Spinner from './components/spinner';
 import Movie from './routes/movie';
 import Movies from './routes/movies';
@@ -51,6 +51,7 @@ class App extends Component {
 
 	componentDidMount() {
 		this.toggleSpinner();
+		this.changeResolution('720p');
 		// Toggle loading spinner before page loads
 		setTimeout(
 			function() {
@@ -190,6 +191,7 @@ class App extends Component {
 										setMovie={this.setMovie}
 										changeFoundMoviesFalse={this.changeFoundMoviesFalse}
 										changeSingleMovieFalse={this.changeSingleMovieFalse}
+										changeResolution={this.changeResolution}
 									/>
 								)}
 							/>

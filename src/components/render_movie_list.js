@@ -42,8 +42,12 @@ class RenderList extends Component {
 	};
 	// console.log(list);
 
+	componentDidMount() {
+		this.props.changeResolution('720p');
+		console.log('Resolution changed to default');
+	}
+
 	render() {
-		console.dir(this.props);
 		return (
 			<div className="list-component">
 				<button onClick={() => console.log(this.state.searchList)}>

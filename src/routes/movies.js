@@ -15,6 +15,7 @@ class Movies extends Component {
 	componentWillUnmount() {
 		this.props.changeFoundMoviesFalse();
 		this.props.changeSingleMovieFalse();
+		// this.props.changeResolution('720p');
 	}
 
 	render() {
